@@ -23,6 +23,16 @@ namespace Tests
       TotalBudgetShouldBe(expected, actual);
     }
 
+    [Test]
+    public void Period_Inside_Budget_Month()
+    {
+      var start = new DateTime(2019, 04, 01);
+      var end = new DateTime(2019, 04, 01);
+      decimal actual = service.Query(start, end);
+      var expected = 1;
+      TotalBudgetShouldBe(expected, actual);
+    }
+
     private void TotalBudgetShouldBe(int expected, decimal actual)
     {
       Assert.AreEqual(expected, actual);
