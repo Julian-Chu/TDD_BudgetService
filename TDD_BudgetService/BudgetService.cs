@@ -25,6 +25,10 @@ namespace Tests
       {
         return 0;
       }
+      else if (end > budget.LastDay)
+      {
+        return Days(start, budget.LastDay);
+      }
       return Days(start, end);
     }
 
