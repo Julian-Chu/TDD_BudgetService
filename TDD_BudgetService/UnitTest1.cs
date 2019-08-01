@@ -86,6 +86,19 @@ namespace Tests
       TotalBudgetShouldBe(20, actual);
     }
 
+    [Test]
+    public void multiple_budgets()
+    {
+      _repo.GetAll().Returns(new List<Budget>()
+      {
+        new Budget() { YearMonth = "201903", Amount = 310 },
+        new Budget() { YearMonth = "201904", Amount = 30 },
+        new Budget() { YearMonth = "201905", Amount = 3100 },
+      });
+      decimal actual = _service.Query(new DateTime(2019, 3, 30), new DateTime(2019, 05, 02));
+      TotalBudgetShouldBe(250, actual);
+    }
+
     private void TotalBudgetShouldBe(decimal expected, decimal actual)
     {
       Assert.AreEqual(expected, actual);
