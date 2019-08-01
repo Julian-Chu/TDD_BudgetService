@@ -1,3 +1,4 @@
+using System;
 using NUnit.Framework;
 
 namespace Tests
@@ -10,9 +11,22 @@ namespace Tests
     }
 
     [Test]
-    public void Test1()
+    public void No_Budget()
     {
-      Assert.Pass();
+      var service = new BudgetService();
+      var start = new DateTime(2019, 04, 01);
+      var end = new DateTime(2019, 04, 03);
+      decimal actual = service.Query(start, end);
+      var expected = 0;
+      Assert.AreEqual(expected, actual);
+    }
+  }
+
+  public class BudgetService
+  {
+    public decimal Query(DateTime start, DateTime end)
+    {
+      throw new NotImplementedException();
     }
   }
 }
