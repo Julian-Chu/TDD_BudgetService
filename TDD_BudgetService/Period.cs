@@ -17,5 +17,12 @@ namespace Tests
     {
       return End < anotherPeriod.Start | Start > anotherPeriod.End;
     }
+
+    public decimal OverlappingDays(Period budgetPeriod)
+    {
+      var endDate = End <= budgetPeriod.End ? End : budgetPeriod.End;
+      var startDate = Start > budgetPeriod.Start ? Start : budgetPeriod.Start;
+      return endDate.Day - startDate.Day + 1;
+    }
   }
 }
