@@ -25,16 +25,15 @@ namespace Tests
         return 0;
       }
 
-      var budget = budgets.FirstOrDefault();
-      var budgetPeriod = budget.Period;
-      if (period.IsNoOverlapping(budgetPeriod))
+
+      var queryBudgets = budgets.Where(b => !period.IsNoOverlapping(b.Period));
+      decimal sum = 0;
+      foreach (var budget in queryBudgets)
       {
-        return 0;
+        var budgetPeriod = budget.Period;
+        sum += OverlappingDays(period, budgetPeriod) * budget.dailyAmount;
       }
-      else
-      {
-        return OverlappingDays(period, budgetPeriod) * budget.dailyAmount;
-      }
+      return sum;
     }
 
     private decimal OverlappingDays(Period period, Period budgetPeriod)
