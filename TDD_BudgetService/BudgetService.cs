@@ -14,6 +14,7 @@ namespace Tests
 
     public decimal Query(DateTime start, DateTime end)
     {
+      var period = new Period(start, end);
       var budgets = _repo.GetAll();
       if (budgets.Count == 0)
       {
@@ -21,17 +22,16 @@ namespace Tests
       }
 
       var budget = budgets.FirstOrDefault();
-      if (end < budget.FirstDay || start > budget.LastDay)
+      if (period.IsNoOverlapping(budget))
       {
         return 0;
       }
       else
       {
-        var endDate = end <= budget.LastDay ? end : budget.LastDay;
-        var startDate = start > budget.FirstDay ? start : budget.FirstDay;
+        var endDate = period.End <= budget.LastDay ? period.End : budget.LastDay;
+        var startDate = period.Start > budget.FirstDay ? period.Start : budget.FirstDay;
         return Days(startDate, endDate);
       }
-      //return Days(start, end);
     }
 
     private int Days(DateTime start, DateTime end)
