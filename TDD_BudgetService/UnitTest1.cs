@@ -26,7 +26,7 @@ namespace Tests
   {
     public decimal Query(DateTime start, DateTime end)
     {
-      throw new NotImplementedException();
+      return 0;
     }
   }
 }
