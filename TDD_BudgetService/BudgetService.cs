@@ -21,7 +21,7 @@ namespace Tests
       }
 
       var budget = budgets.FirstOrDefault();
-      if (end < budget.FirstDay)
+      if (end < budget.FirstDay || start > budget.LastDay)
       {
         return 0;
       }

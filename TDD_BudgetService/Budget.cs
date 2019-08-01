@@ -8,5 +8,7 @@ namespace Tests
     public int Amount { get; set; }
 
     public DateTime FirstDay => DateTime.ParseExact(YearMonth + "01", "yyyyMMdd", null);
+
+    public DateTime LastDay => FirstDay.AddMonths(1).AddDays(-1);
   }
 }
