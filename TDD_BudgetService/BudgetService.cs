@@ -33,7 +33,7 @@ namespace Tests
       }
       else
       {
-        return OverlappingDays(period, budgetPeriod);
+        return OverlappingDays(period, budgetPeriod) * budget.dailyAmount;
       }
     }
 

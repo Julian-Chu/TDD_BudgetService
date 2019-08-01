@@ -4,6 +4,8 @@ namespace Tests
 {
   public class Budget
   {
+    public decimal dailyAmount => Amount / (LastDay - FirstDay).Days;
+
     public string YearMonth { get; set; }
     public int Amount { get; set; }
 
