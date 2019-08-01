@@ -18,22 +18,14 @@ namespace Tests
     {
       var start = new DateTime(2019, 04, 01);
       var end = new DateTime(2019, 04, 03);
-      TotalBudgetShouldBe(start, end);
-    }
-
-    private void TotalBudgetShouldBe(DateTime start, DateTime end)
-    {
       decimal actual = service.Query(start, end);
       var expected = 0;
-      Assert.AreEqual(expected, actual);
+      TotalBudgetShouldBe(expected, actual);
     }
-  }
 
-  public class BudgetService
-  {
-    public decimal Query(DateTime start, DateTime end)
+    private void TotalBudgetShouldBe(int expected, decimal actual)
     {
-      return 0;
+      Assert.AreEqual(expected, actual);
     }
   }
 }
