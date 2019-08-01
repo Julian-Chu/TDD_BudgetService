@@ -73,8 +73,17 @@ namespace Tests
     [Test]
     public void invalid_period()
     {
+      _repo.GetAll().Returns(new List<Budget>() { new Budget() { YearMonth = "201904", Amount = 30 } });
       decimal actual = _service.Query(new DateTime(2019, 4, 02), new DateTime(2019, 04, 01));
       TotalBudgetShouldBe(0, actual);
+    }
+
+    [Test]
+    public void daily_amount_is_10()
+    {
+      _repo.GetAll().Returns(new List<Budget>() { new Budget() { YearMonth = "201904", Amount = 300 } });
+      decimal actual = _service.Query(new DateTime(2019, 4, 01), new DateTime(2019, 04, 02));
+      TotalBudgetShouldBe(20, actual);
     }
 
     private void TotalBudgetShouldBe(decimal expected, decimal actual)
