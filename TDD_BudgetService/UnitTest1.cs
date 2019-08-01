@@ -70,6 +70,13 @@ namespace Tests
       TotalBudgetShouldBe(30, actual);
     }
 
+    [Test]
+    public void invalid_period()
+    {
+      decimal actual = _service.Query(new DateTime(2019, 4, 02), new DateTime(2019, 04, 01));
+      TotalBudgetShouldBe(0, actual);
+    }
+
     private void TotalBudgetShouldBe(decimal expected, decimal actual)
     {
       Assert.AreEqual(expected, actual);
