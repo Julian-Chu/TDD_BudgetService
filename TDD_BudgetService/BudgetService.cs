@@ -25,11 +25,13 @@ namespace Tests
       {
         return 0;
       }
-      else if (end > budget.LastDay)
+      else
       {
-        return Days(start, budget.LastDay);
+        var endDate = end <= budget.LastDay ? end : budget.LastDay;
+        var startDate = start > budget.FirstDay ? start : budget.FirstDay;
+        return Days(startDate, endDate);
       }
-      return Days(start, end);
+      //return Days(start, end);
     }
 
     private int Days(DateTime start, DateTime end)
