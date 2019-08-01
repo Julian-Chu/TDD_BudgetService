@@ -21,7 +21,7 @@ namespace Tests
       var period = new Period(start, end);
 
       return _repo.GetAll().Where(b => !period.IsNoOverlapping(b.Period))
-         .Sum(b => period.OverlappingDays(b.Period) * b.dailyAmount);
+         .Sum(b => period.OverlappingDays(b.Period) * b.DailyAmount);
     }
   }
 }

@@ -10,8 +10,8 @@ namespace Tests
       End = end;
     }
 
-    public DateTime Start { get; private set; }
-    public DateTime End { get; private set; }
+    private DateTime Start { get; set; }
+    private DateTime End { get; set; }
 
     public bool IsNoOverlapping(Period anotherPeriod)
     {
