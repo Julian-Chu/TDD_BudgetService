@@ -1,24 +1,30 @@
 using System;
+using System.Collections.Generic;
+using NSubstitute;
 using NUnit.Framework;
 
 namespace Tests
 {
   public class BudgetServiceTests
   {
-    private BudgetService service;
+    private BudgetService _service;
+
+    private IBudgetRepository _repo = Substitute.For<IBudgetRepository>();
 
     [SetUp]
     public void Setup()
     {
-      service = new BudgetService();
+      _service = new BudgetService(_repo);
     }
 
     [Test]
     public void No_Budget()
     {
+      var budgets = new List<Budget>() { };
+      _repo.GetAll().Returns(budgets);
       var start = new DateTime(2019, 04, 01);
       var end = new DateTime(2019, 04, 03);
-      decimal actual = service.Query(start, end);
+      decimal actual = _service.Query(start, end);
       var expected = 0;
       TotalBudgetShouldBe(expected, actual);
     }
@@ -26,9 +32,12 @@ namespace Tests
     [Test]
     public void Period_Inside_Budget_Month()
     {
+      var budgets = new List<Budget>() { new Budget() { YearMonth = "201904", Amount = 30 } };
+      _repo.GetAll().Returns(budgets);
+
       var start = new DateTime(2019, 04, 01);
       var end = new DateTime(2019, 04, 01);
-      decimal actual = service.Query(start, end);
+      decimal actual = _service.Query(start, end);
       var expected = 1;
       TotalBudgetShouldBe(expected, actual);
     }
@@ -37,5 +46,10 @@ namespace Tests
     {
       Assert.AreEqual(expected, actual);
     }
+  }
+
+  public interface IBudgetRepository
+  {
+    List<Budget> GetAll();
   }
 }
