@@ -22,8 +22,7 @@ namespace Tests
     {
       _repo.GetAll().Returns(new List<Budget>() { });
       decimal actual = _service.Query(new DateTime(2019, 04, 01), new DateTime(2019, 04, 03));
-      var expected = 0;
-      TotalBudgetShouldBe(expected, actual);
+      TotalBudgetShouldBe(0, actual);
     }
 
     [Test]
@@ -32,8 +31,16 @@ namespace Tests
       _repo.GetAll().Returns(new List<Budget>() { new Budget() { YearMonth = "201904", Amount = 30 } });
 
       decimal actual = _service.Query(new DateTime(2019, 04, 01), new DateTime(2019, 04, 01));
-      var expected = 1;
-      TotalBudgetShouldBe(expected, actual);
+      TotalBudgetShouldBe(1, actual);
+    }
+
+    [Test]
+    public void period_no_overlap_before_budget_first_day()
+    {
+      _repo.GetAll().Returns(new List<Budget>() { new Budget() { YearMonth = "201904", Amount = 30 } });
+
+      decimal actual = _service.Query(new DateTime(2019, 3, 31), new DateTime(2019, 03, 31));
+      TotalBudgetShouldBe(0, actual);
     }
 
     private void TotalBudgetShouldBe(decimal expected, decimal actual)

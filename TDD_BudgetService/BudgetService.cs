@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 
 namespace Tests
 {
@@ -15,6 +16,12 @@ namespace Tests
     {
       var budgets = _repo.GetAll();
       if (budgets.Count == 0)
+      {
+        return 0;
+      }
+
+      var budget = budgets.FirstOrDefault();
+      if (end < budget.FirstDay)
       {
         return 0;
       }
