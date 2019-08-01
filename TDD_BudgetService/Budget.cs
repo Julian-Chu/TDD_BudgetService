@@ -7,8 +7,10 @@ namespace Tests
     public string YearMonth { get; set; }
     public int Amount { get; set; }
 
-    public DateTime FirstDay => DateTime.ParseExact(YearMonth + "01", "yyyyMMdd", null);
+    public Period Period => new Period(FirstDay, LastDay);
 
-    public DateTime LastDay => FirstDay.AddMonths(1).AddDays(-1);
+    private DateTime FirstDay => DateTime.ParseExact(YearMonth + "01", "yyyyMMdd", null);
+
+    private DateTime LastDay => FirstDay.AddMonths(1).AddDays(-1);
   }
 }

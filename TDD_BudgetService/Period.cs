@@ -13,9 +13,9 @@ namespace Tests
     public DateTime Start { get; private set; }
     public DateTime End { get; private set; }
 
-    public bool IsNoOverlapping(Budget budget)
+    public bool IsNoOverlapping(Period anotherPeriod)
     {
-      return End < budget.FirstDay || Start > budget.LastDay;
+      return End < anotherPeriod.Start | Start > anotherPeriod.End;
     }
   }
 }

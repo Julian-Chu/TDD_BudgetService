@@ -22,16 +22,22 @@ namespace Tests
       }
 
       var budget = budgets.FirstOrDefault();
-      if (period.IsNoOverlapping(budget))
+      var budgetPeriod = budget.Period;
+      if (period.IsNoOverlapping(budgetPeriod))
       {
         return 0;
       }
       else
       {
-        var endDate = period.End <= budget.LastDay ? period.End : budget.LastDay;
-        var startDate = period.Start > budget.FirstDay ? period.Start : budget.FirstDay;
-        return Days(startDate, endDate);
+        return OverlappingDays(period, budgetPeriod);
       }
+    }
+
+    private decimal OverlappingDays(Period period, Period budgetPeriod)
+    {
+      var endDate = period.End <= budgetPeriod.End ? period.End : budgetPeriod.End;
+      var startDate = period.Start > budgetPeriod.Start ? period.Start : budgetPeriod.Start;
+      return Days(startDate, endDate);
     }
 
     private int Days(DateTime start, DateTime end)
